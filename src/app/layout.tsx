@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={openSans.className}>
-      <body className="w-full max-w-screen-xl overflow-auto">
+      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
         <header className="sticky top-0 bg-white z-10 border-b">
           <Navbar />
         </header>
