@@ -12,5 +12,9 @@ export default async function SignInpage() {
   }
 
   const providers = (await getProviders()) ?? {};
-  return <Signin providers={providers} />;
+  return (
+    <section className="flex justify-center mt-[30%]">
+      <Signin providers={providers} />
+    </section>
+  );
 }
