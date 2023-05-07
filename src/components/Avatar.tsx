@@ -7,7 +7,7 @@ type Props = {
 export default function Avatar({ image, size = "normal", highlight = false }: Props) {
   return (
     <div className={getContainerStyle(size, highlight)}>
-      <img className={`bg-white rounded-full p-[0.01rem] ${getImageSizeStyle(size)}`} alt="user profile" src={image ?? undefined} referrerPolicy="no-referrer" />
+      <img className={`bg-white object-cover rounded-full p-[0.01rem] ${getImageSizeStyle(size)}`} alt="user profile" src={image ?? undefined} referrerPolicy="no-referrer" />
     </div>
   );
 }
