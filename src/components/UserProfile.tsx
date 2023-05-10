@@ -17,7 +17,7 @@ export default function UserProfile({ user }: Props) {
       <Avatar image={image} highlight />
       <div>
         <h1>{username}</h1>
-        <FollowButton />
+        <FollowButton user={user} />
         <ul>
           {info.map(({ title, data }, index) => (
             <li key={index}>
