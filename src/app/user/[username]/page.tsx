@@ -12,9 +12,9 @@ export default async function Userpage({ params: { username } }: Props) {
   }
 
   return (
-    <>
-      <UserProfile user={user} />;
+    <section className="w-full">
+      <UserProfile user={user} />
       <UserPosts user={user} />
-    </>
+    </section>
   );
 }
