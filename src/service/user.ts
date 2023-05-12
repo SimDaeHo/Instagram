@@ -1,4 +1,4 @@
-import { SearchUser } from "./../model/user";
+import { SearchUser } from "@/model/user";
 import { client } from "./sanity";
 
 type OAuthUser = {
@@ -8,6 +8,7 @@ type OAuthUser = {
   username: string;
   image?: string | null;
 };
+
 export async function addUser({ id, username, email, name, image }: OAuthUser) {
   return client.createIfNotExists({
     _id: id,
@@ -35,16 +36,23 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function searchUsers(keyword?: string) {
-  const query = keyword ? `&& (name match "${keyword}") || (username  match "${keyword}")` : "";
+  const query = keyword ? `&& (name match "${keyword}") || (username match "${keyword}")` : "";
   return client
     .fetch(
-      `*[_type == 'user' ${query}]{
-    ...,
-    "following": count(following),
-    "followers": count(followers),
-  }`
+      `*[_type =="user" ${query}]{
+      ...,
+      "following": count(following),
+      "followers": count(followers),
+    }
+    `
     )
-    .then((users) => users.map((user: SearchUser) => ({ ...user, following: user.following ?? 0, followers: user.followers ?? 0 })));
+    .then((users) =>
+      users.map((user: SearchUser) => ({
+        ...user,
+        following: user.following ?? 0,
+        followers: user.followers ?? 0,
+      }))
+    );
 }
 
 export async function getUserForProfile(username: string) {
@@ -69,7 +77,7 @@ export async function getUserForProfile(username: string) {
 
 export async function addBookmark(userId: string, postId: string) {
   return client
-    .patch(userId)
+    .patch(userId) //
     .setIfMissing({ bookmarks: [] })
     .append("bookmarks", [
       {

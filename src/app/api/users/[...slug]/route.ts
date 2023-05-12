@@ -1,4 +1,4 @@
-import { getLikedPostOf, getPostsOf, getSavedPostOf } from "@/service/post";
+import { getLikedPostsOf, getPostsOf, getSavedPostsOf } from "@/service/post";
 import { NextRequest, NextResponse } from "next/server";
 
 type Context = {
@@ -17,9 +17,9 @@ export async function GET(_: NextRequest, context: Context) {
 
   let request = getPostsOf;
   if (query === "saved") {
-    request = getSavedPostOf;
+    request = getSavedPostsOf;
   } else if (query === "liked") {
-    request = getLikedPostOf;
+    request = getLikedPostsOf;
   }
 
   return request(username).then((data) => NextResponse.json(data));
