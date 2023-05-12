@@ -75,7 +75,7 @@ export async function getSavedPostOf(username: string) {
     .then(mapPosts);
 }
 function mapPosts(posts: SimplePost[]) {
-  return posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }));
+  return posts.map((post: SimplePost) => ({ ...post, likes: post.likes ?? [], image: urlFor(post.image) }));
 }
 
 export async function likePost(postId: string, userId: string) {
