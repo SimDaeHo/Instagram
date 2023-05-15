@@ -113,3 +113,8 @@ export async function addComment(postId: string, userId: string, comment: string
     ])
     .commit({ autoGenerateArrayKeys: true });
 }
+
+export async function createPost(userId: string, text: string, file: Blob) {
+  console.log(userId, text, file);
+  return {};
+}
