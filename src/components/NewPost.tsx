@@ -6,6 +6,7 @@ import Button from "./ui/Button";
 import FilesIcon from "./ui/icons/FilesIcon";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import GridSpinner from "./ui/GridSpinner";
 
 type Props = {
   user: AuthUser;
@@ -68,6 +69,12 @@ export default function NewPost({ user: { username, image } }: Props) {
   };
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6">
+      {loading && (
+        <div className="absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20">
+          <GridSpinner />
+        </div>
+      )}
+      {error && <p className="w-full bg-red-600 text-center p-4 mb-4 font-bold">{error}</p>}
       <PostUserAvatar username={username} image={image ?? ""} />
       <form className="w-full flex flex-col mt-2" onSubmit={handleSubmit}>
         <input className="hidden" name="input" id="input-upload" type="file" accept="image/*" onChange={handleChange} />
