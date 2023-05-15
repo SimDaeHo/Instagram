@@ -4,6 +4,7 @@ import { ChangeEvent, DragEvent, useState } from "react";
 import PostUserAvatar from "./PostUserAvatar";
 import Button from "./ui/Button";
 import FilesIcon from "./ui/icons/FilesIcon";
+import Image from "next/image";
 
 type Props = {
   user: AuthUser;
@@ -52,8 +53,18 @@ export default function NewPost({ user: { username, image } }: Props) {
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >
-          <FilesIcon />
-          <p>Drag and Drop your image here or click</p>
+          {dragging && <div className="absolute inset-0 z-10 bg-sky-500/20 pointer-events-none" />}
+          {!file && (
+            <div className="flex flex-col items-center pointer-events-none">
+              <FilesIcon />
+              <p>Drag and Drop your image here or click</p>
+            </div>
+          )}
+          {file && (
+            <div className="relative w-full aspect-square">
+              <Image className="object-cover" src={URL.createObjectURL(file)} alt="local file" fill sizes="650px" />
+            </div>
+          )}
         </label>
         <textarea className="outline-none text-lg border border-neutral-300" name="text" id="input-text" required rows={10} placeholder={"Write a caption..."} />
         <Button text="Publish" onClick={() => {}} />
