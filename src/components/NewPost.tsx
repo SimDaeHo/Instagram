@@ -1,10 +1,11 @@
 "use client";
 import { AuthUser } from "@/model/user";
-import { ChangeEvent, DragEvent, useState } from "react";
+import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from "react";
 import PostUserAvatar from "./PostUserAvatar";
 import Button from "./ui/Button";
 import FilesIcon from "./ui/icons/FilesIcon";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type Props = {
   user: AuthUser;
@@ -12,6 +13,11 @@ type Props = {
 export default function NewPost({ user: { username, image } }: Props) {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>();
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target?.files;
@@ -40,10 +46,30 @@ export default function NewPost({ user: { username, image } }: Props) {
     }
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!file) return;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("text", textRef.current?.value ?? "");
+
+    fetch("/api/posts/", { method: "POST", body: formData })
+      .then((res) => {
+        if (!res.ok) {
+          setError(`${res.status} ${res.statusText}`);
+          return;
+        }
+        router.push("/");
+      })
+      .catch((err) => setError(err.toString()))
+      .finally(() => setLoading(false));
+  };
   return (
     <section className="w-full max-w-xl flex flex-col items-center mt-6">
       <PostUserAvatar username={username} image={image ?? ""} />
-      <form className="w-full flex flex-col mt-2">
+      <form className="w-full flex flex-col mt-2" onSubmit={handleSubmit}>
         <input className="hidden" name="input" id="input-upload" type="file" accept="image/*" onChange={handleChange} />
         <label
           className={`w-full h-60 flex flex-col items-center justify-center ${!file && "border-2 border-sky-500 border-dashed"}`}
@@ -66,7 +92,7 @@ export default function NewPost({ user: { username, image } }: Props) {
             </div>
           )}
         </label>
-        <textarea className="outline-none text-lg border border-neutral-300" name="text" id="input-text" required rows={10} placeholder={"Write a caption..."} />
+        <textarea className="outline-none text-lg border border-neutral-300" name="text" id="input-text" required rows={10} placeholder={"Write a caption..."} ref={textRef} />
         <Button text="Publish" onClick={() => {}} />
       </form>
     </section>
