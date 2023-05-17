@@ -1,4 +1,4 @@
-![](C:\Users\master\OneDrive\바탕 화면\인스타그램 제목수정.png)
+![](https://github.com/SimDaeHo/Instagram/assets/116733236/0d3670e3-311e-4bff-a0e2-5eceb8967835)
 
 ### 🌱프로젝트명 : Instagram
 
