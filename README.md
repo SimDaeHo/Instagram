@@ -13,3 +13,19 @@
 🗂 [포트폴리오](https://regal-hunter-2f7.notion.site/Instagram-26674afbbff2497fa40574737acd7987)
 
 💻 [시연 영상](https://youtu.be/WmZ6oJU2lxo)
+
+---
+
+## 🔧 기술 스택
+
+### Client  
+
+- Next, React, SWR, Typescript, TailwindCSS
+
+### Server, DB
+
+- Sanity
+
+### Deploy
+
+- Vercel
