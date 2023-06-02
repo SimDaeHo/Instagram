@@ -8,7 +8,7 @@
 
 ---
 
-💙[사이트](https://clone-instagram-silk.vercel.app/)
+💙[사이트](https://nextjs-instagram-one.vercel.app/)
 
 🗂 [포트폴리오](https://regal-hunter-2f7.notion.site/Instagram-26674afbbff2497fa40574737acd7987)
 
